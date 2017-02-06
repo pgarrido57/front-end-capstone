@@ -1,0 +1,24 @@
+{
+  "name": "lib",
+  "authors": [
+    "Peter Garrido <peter.garrido57@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.1",
+    "angular-route": "^1.6.1",
+    "firebase": "^3.6.8",
+    "angular-material": "^1.1.3",
+    "bootstrap": "^3.3.7"
+  }
+}
