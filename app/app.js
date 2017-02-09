@@ -38,6 +38,10 @@ app.config(function ($routeProvider) {
       controller: 'newRecipeCtrl',
       templateUrl: '/app/partials/newRecipe.html',
     })
+      .when('/recipe', {
+      controller: 'recipeCtrl',
+      templateUrl: '/app/partials/recipe.html',
+    })
       .otherwise ({
       redirectTo: '/'
     });
