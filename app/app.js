@@ -28,11 +28,15 @@ app.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
       controller: 'loginCtrl',
-      templateUrl: '/app/partails/login.html'
+      templateUrl: '/app/partials/login.html'
      })
       .when('/register', {
       controller: 'registerCtrl',
       templateUrl: '/app/partials/register.html',
+    })
+      .when('/appetizer', {
+      controller: 'appetizerCtrl',
+      templateUrl: '/app/partials/appetizer.html',
     })
       .otherwise ({
       redirectTo: '/'
