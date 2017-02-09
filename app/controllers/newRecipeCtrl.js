@@ -15,7 +15,7 @@ function newRecipeCtrl($scope, Upload, recipeService) {
     $scope.category = '';
     $scope.rating = {};
   };
-  var defaultImage = 'img/Lets-get-cooking.png';
+  var defaultImage = '';
   $scope.imageShow = defaultImage;
   $scope.name = '';
   $scopeingredients = [];
