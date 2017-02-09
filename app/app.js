@@ -34,9 +34,9 @@ app.config(function ($routeProvider) {
       controller: 'registerCtrl',
       templateUrl: '/app/partials/register.html',
     })
-      .when('/appetizer', {
-      controller: 'appetizerCtrl',
-      templateUrl: '/app/partials/appetizer.html',
+      .when('/newRecipe', {
+      controller: 'newRecipeCtrl',
+      templateUrl: '/app/partials/newRecipe.html',
     })
       .otherwise ({
       redirectTo: '/'
