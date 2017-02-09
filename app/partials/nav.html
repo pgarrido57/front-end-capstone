@@ -1,0 +1,97 @@
+<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a ui-sref="home" class="navbar-brand">Ghzuzaq</a>
+    </div>
+
+    <div id="navbarCollapse" class="collapse navbar-collapse" ng-controller="navCtrl as nav">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: isActive('/home')}">
+          <a ui-sref="home" data-toggle="collapse" data-target=".navbar-collapse.in">Home</a></li>
+        <li ng-show="loggedin.loggedin" ng-class="{ active: isActive('/newRecipe')}">
+          <a ui-sref="newRecipe" data-toggle="collapse" data-target=".navbar-collapse.in">Add Recipe</a></li>
+        <li ng-show="loggedin.loggedin" ng-class="{ active: isActive('/myCookBook')}">
+          <a ui-sref="myCookBook" data-toggle="collapse" data-target=".navbar-collapse.in">My Cookbook</a>
+          <li ng-class="{ active: isActive('/login')}">
+            <a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in">Create/Edit Account</a>
+          </li>
+          <li ng-class="{ active: isActive('/about')}">
+            <a ui-sref="about" data-toggle="collapse" data-target=".navbar-collapse.in">About</a></li>
+      </ul>
+      <div class="col-sm-4">
+        <div id="imaginary_container">
+          <div class="input-group stylish-input-group">
+            <input type="search" class="form-control" ng-blur="blurit()" ng-focus="showSearch=true" placeholder="Search Ingredient" ng-model="search.ingredients.ingredient">
+          </div>
+          <ul ng-show="showSearch">
+            <div ng-repeat="recipe in recipes | filter:search | filter:{private: false}">
+              <a href="#/{{recipe.$id}}">
+                <li>
+                  {{recipe.name}}
+                </li>
+              </a>
+            </div>
+
+          </ul>
+
+        </div>
+      </div>
+
+      <div ng-controller="loginCtrl" class="btn-group dropdown navbar-right">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" ng-bind="loginName" ng-click="deleteData()">
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li>
+            <input ng-model="email" type="email" placeholder="Email">
+          </li>
+          <li>
+            <input ng-model="password" type="password" placeholder="Password">
+          </li>
+          <li>
+            <button ng-click="nativeLogin()" class="btn btn-primary">Login</button>
+          </li>
+          <hr>
+          <li>
+            <a ng-click="genericLogin('google')">
+              <img src=" " style="width: 30px;">
+            </a>
+            <a ng-click="genericLogin('github')">
+              <img src=" " style="width: 30px;">
+            </a>
+          </li>
+        </ul>
+        <img ng-if="loginHideGoogle" id="loginImage" ng-src="{{ loginImage }}">
+
+        <div ng-if="loginHideNative" id="loginDef">{{email}}</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" data-backdrop="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Oops</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          Enter valid email and password
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
