@@ -1,6 +1,6 @@
 const app = angular.module('Capstone', ['ngRoute', 'ngAnimate']);
 
-app.config(function ($routeProvider) {
+app.config(function($routeProvider) {
 
   // Initialize Firebase
   firebase.initializeApp({
@@ -13,40 +13,70 @@ app.config(function ($routeProvider) {
 
   // this checks to make sure user is signed in
   const userStatus = {
-      authState:function ($location){
-          console.log("welcome");
-          const unsubscribe = firebase.auth().onAuthStateChanged(user =>{
-              unsubscribe();
-              console.log("userStatus", user);
-              if (!user){
-                  $location.url('/');
-              }
-          });
-      }
+    authState: function($location) {
+      console.log("welcome");
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        unsubscribe();
+        console.log("userStatus", user);
+        if (!user) {
+          $location.url('/');
+        }
+      });
+    }
   };
 
   $routeProvider
     .when('/', {
       controller: 'loginCtrl',
       templateUrl: '/app/partials/login.html'
-     })
-      .when('/register', {
+    })
+    .when('/register', {
       controller: 'registerCtrl',
       templateUrl: '/app/partials/register.html',
     })
-      .when('/newRecipe', {
+    .when("/list", {
+      templateUrl: "/app/partials/list.html",
+      controller: 'listCtrl',
+      controllerAs: 'list'
+      // resolve : userStatus
+    })
+
+    .when("/home", {
+      templateUrl: "pages/landing.html",
+      controller: 'mainCtrl',
+      controllerAs: 'main'
+      // resolve : userStatus
+    })
+
+    .when("/list", {
+      templateUrl: "/app/partials/list.html",
+      controller: 'listCtrl',
+      controllerAs: 'list'
+      // resolve : userStatus
+    })
+
+    .when("/new", {
+      templateUrl: "/app/partials/newRecipe.html",
       controller: 'newRecipeCtrl',
-      templateUrl: '/app/partials/newRecipe.html',
+      controllerAs: 'rec'
+      // resolve : userStatus
     })
-      .when('/recipe', {
-      controller: 'recipeCtrl',
-      templateUrl: '/app/partials/recipe.html',
+
+    .when("/view/:recipeId", {
+      templateUrl: "/app/partials/view.html",
+      controller: 'viewCtrl',
+      controllerAs: 'view'
+      // resolve : userStatus
     })
-      .when('/editRecipe', {
-      controller: 'editRecipeCtrl',
-      templateUrl: '/app/partials/editRecipe.html',
+
+    .when("/edit/:recipeId", {
+      templateUrl: "/app/partials/view.html",
+      controller: "editCtrl",
+      controllerAs: 'rec'
+      // resolve : userStatus
     })
-      .otherwise ({
+
+    .otherwise({
       redirectTo: '/'
     });
-});
+  });

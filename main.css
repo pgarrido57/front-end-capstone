@@ -112,4 +112,16 @@
     font-family: "Roboto", "Helvetica Neue", sans-serif;
 }
 
-/* Recipe input*/
+.topSpace {
+  margin-top: 10px;
+}
+
+.bottomSpace {
+  margin-bottom: 10px;
+}
+
+.recipeTitle {
+  list-style: none;
+  cursor: pointer;
+  font-weight: bold;
+}

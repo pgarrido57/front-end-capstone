@@ -1,123 +1,115 @@
-app.controller('newRecipeCtrl', newRecipeCtrl);
+(function() {
 
-newRecipeCtrl.$inject = ['Upload', 'recipeService'];
+  'use strict';
 
-function newRecipeCtrl($scope, Upload, recipeService) {
+  angular.module('Capstone').controller('newRecipeCtrl', newRecipeCtrl);
 
-  // list everything
-  recipes = recipeService.recipes;
-  var Recipe = => () {
-    $scope.name = "";
-    $scope.prepTime = "";
-    $scope.cookTime = "";
-    $scope.ingredients = [];
-    $scope.instructions = [];
-    $scope.category = '';
-    $scope.rating = {};
-  };
-  var defaultImage = '';
-  $scope.imageShow = defaultImage;
-  $scope.name = '';
-  $scopeingredients = [];
-  $scope.instructions = [];
-  $scope.prepTime = "";
-  $scope.cookTime = "";
-  $scope.category = "";
-  $scope.wrongFile = "";
-  $scope.privacy = false;
-  $scope.userName = recipeService.loggedin.username;
-  $scope.editHide = true;
-  $scope.createRecipe = createRecipe;
-  $scope.imageChange = imageChange;
-  $scope.removeIng = removeIng;
-  $scope.removeIns = removeIns;
-  $scope.addPost = addPost;
-  $scope.editName = editName;
+  newRecipeCtrl.$inject = ['firebaseFactory', '$location'];
 
-  function createRecipe() {
+  function newRecipeCtrl(firebaseFactory, $location) {
 
-    if (imageShow === defaultImage) {
+    var vm = this;
 
-    }
+    vm.name = "recipe";
 
-    var newRecipe = new Recipe();
-    newRecipe.name = name;
-    if (imageShow === defaultImage) {
-      newRecipe.image = defaultImage;
-    } else {
-      newRecipe.image = files;
-    }
-    newRecipe.prepTime = prepTime;
-    newRecipe.cookTime = cookTime;
-    newRecipe.category = category;
-    newRecipe.private = privacy;
-    newRecipe.userName = userName;
-    newRecipe.rating = {
-      placeholder: 0
+    vm.foodTags = [];
+
+    firebaseFactory.getTags().then(function(data) {
+      vm.foodTags = data;
+    });
+
+    var instructionCounter = 1;
+    vm.recipeTags = [];
+    vm.ingredients = [];
+    vm.instructions = [{
+      id: 1,
+      instructions: ""
+    }];
+    vm.newRecipe = {
+      'RecipeName': 'dd',
+      'RecipeId': '',
+      'Description': '',
+      'ServingSize': ''
     };
-    for (var i = 0; i < ingredients.length; i++) {
-      newRecipe.ingredients.push({
-        ingredient: ingredients[i].name,
-        qty: ingredients[i].qty
+
+
+    vm.addNewRecipe = function() {
+
+      var cleanedTags = vm.recipeTags.map(function(x) {
+        return {
+          TagName: x.TagName,
+          TagId: x.TagId
+        }
       });
-    }
-    for (i = 0; i < instructions.length; i++) {
-      newRecipe.instructions.push({
-        instruction: instructions[i].name
+
+
+      console.table(vm.newRecipe)
+      var newRec = {
+        RecipeName: vm.newRecipe.RecipeName,
+        Description: vm.newRecipe.Description,
+        ServingSize: vm.newRecipe.ServingSize,
+        Ingredients: vm.ingredients,
+        Instructions: vm.instructions,
+        Tags: cleanedTags
+      };
+
+      firebaseFactory.addNewRecipe(newRec).then(function(data) {
+        success("Saved Successfully");
+        $location.path('list');
       });
+
+
+    };
+
+    vm.addNewInstruction = function() {
+      instructionCounter++;
+      vm.instructions.push({
+        id: instructionCounter,
+        instructions: ""
+      });
+    };
+
+
+    vm.addNewGroup = function() {
+      var newGroup = {
+        'Title': '',
+        'RecipeId': 0,
+        'Ingredients': [{
+        'Ingredient': ''
+        }]
+      };
+      vm.ingredients.push(newGroup);
+    };
+
+    vm.addNewIngredient = function(group) {
+      var index = vm.ingredients.indexOf(group);
+      var newIng = {
+        'Ingredient': ''
+      };
+      vm.ingredients[index].Ingredients.push(newIng);
     }
 
-    addRecipe(newRecipe);
+    vm.deleteIngredient = function(ing, group) {
+      vm.ingredients[group].Ingredients.splice(ing, 1);
+    };
 
-    name = '';
-    ingredients = [];
-    instructions = [];
-    prepTime = "";
-    cookTime = "";
-    category = "";
-    imageShow = 'img/Lets-get-cooking.png';
+    vm.toggleSelection = function(myTag) {
+      myTag.Selected = !myTag.Selected;
+
+      var idx = -1;
+      for (var i = 0; i < vm.recipeTags.length; i++) {
+        if (vm.recipeTags[i].TagId == myTag.TagId) {
+          idx = i;
+        }
+      }
+      if (idx > -1) {
+        vm.recipeTags.splice(idx, 1);
+      } else {
+        vm.recipeTags.push(myTag);
+      }
+
+    };
+
   }
 
-  function addRecipe(recipe) {
-    recipes.$add(recipe).then(=>(ref) {
-      var recipesId = ref.key();
-      recipeService.addtoCookBook(recipesId);
-    });
-  }
-
-  function addPost(files) {
-    Upload.base64DataUrl(files).then(=>(base64Urls) {
-      files = base64Urls;
-    });
-    imageShow = files;
-    console.log(imageShow);
-  }
-
-  function imageChange(file, rejFiles) {
-    if (rejFiles) {
-      wrongFile = "Incorrect file type";
-    } else {
-      wrongFile = "";
-    }
-    if (file === null) {
-      wrongFile = "Incorrect file size: 2MB or less";
-    } else {
-      wrongFile = "";
-    }
-  }
-
-  function removeIng(n) {
-    console.log(recipeService.loggedin);
-    ingredients.splice(n, 1);
-  }
-
-  function removeIns(n) {
-    instructions.splice(n, 1);
-  }
-
-  function editName() {
-    editHide = false;
-  }
-
-}
-}();
+})();
