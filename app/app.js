@@ -38,45 +38,33 @@ app.config(function($routeProvider) {
       templateUrl: "/app/partials/list.html",
       controller: 'listCtrl',
       controllerAs: 'list'
-      // resolve : userStatus
     })
-
     .when("/home", {
-      templateUrl: "pages/landing.html",
+      templateUrl: "/app/partials/main.html",
       controller: 'mainCtrl',
       controllerAs: 'main'
-      // resolve : userStatus
     })
-
     .when("/list", {
       templateUrl: "/app/partials/list.html",
       controller: 'listCtrl',
       controllerAs: 'list'
-      // resolve : userStatus
     })
-
     .when("/new", {
       templateUrl: "/app/partials/newRecipe.html",
       controller: 'newRecipeCtrl',
       controllerAs: 'rec'
-      // resolve : userStatus
     })
-
     .when("/view/:recipeId", {
       templateUrl: "/app/partials/view.html",
       controller: 'viewCtrl',
       controllerAs: 'view'
-      // resolve : userStatus
     })
-
     .when("/edit/:recipeId", {
       templateUrl: "/app/partials/view.html",
       controller: "editCtrl",
       controllerAs: 'rec'
-      // resolve : userStatus
     })
-
     .otherwise({
       redirectTo: '/'
     });
-  });
+});
