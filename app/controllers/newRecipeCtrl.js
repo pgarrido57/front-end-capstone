@@ -18,7 +18,7 @@ app.controller('newRecipeCtrl', function(firebaseFactory, $location) {
     instructions: ""
   }];
   vm.newRecipe = {
-    'RecipeName': 'dd',
+    'RecipeName': '',
     'RecipeId': '',
     'Description': '',
     'ServingSize': ''
