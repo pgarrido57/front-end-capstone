@@ -1,12 +1,18 @@
-app.controller('newRecipeCtrl', function(firebaseFactory, $location) {
-  console.log('newRecipeCtrl');
+'use strict';
+
+angular.module('capstone').controller('newRecipeCtrl', newRecipeCtrl);
+
+newRecipeCtrl.$inject = ['DataService', '$location'];
+
+function newRecipeCtrl(DataService, $location) {
+
   var vm = this;
 
   vm.name = "recipe";
 
   vm.foodTags = [];
 
-  firebaseFactory.getTags().then(function(data) {
+  DataService.getTags().then(function(data) {
     vm.foodTags = data;
   });
 
@@ -44,8 +50,7 @@ app.controller('newRecipeCtrl', function(firebaseFactory, $location) {
       Tags: cleanedTags
     };
 
-    firebaseFactory.addNewRecipe(newRec).then(function(data) {
-      toastr.success("Saved Successfully");
+    DataService.addNewRecipe(newRec).then(function(data) {
       $location.path('list');
     });
 
@@ -99,4 +104,7 @@ app.controller('newRecipeCtrl', function(firebaseFactory, $location) {
       vm.recipeTags.push(myTag);
     }
   };
-});
+  vm.cancelEdit = function() {
+    $location.path('/list');
+  }
+};

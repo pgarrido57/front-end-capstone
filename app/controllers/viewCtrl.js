@@ -1,10 +1,16 @@
-app.controller('viewCtrl', function(firebaseFactory, $location, $routeParams) {
-  console.log('viewCtrl');
+'use strict';
+
+angular.module('capstone').controller('viewCtrl', viewCtrl);
+
+viewCtrl.$inject = ['DataService', '$location', '$routeParams'];
+
+function viewCtrl(DataService, $location, $routeParams) {
+
   var vm = this;
   vm.recipe = {};
 
   var recipeId = $routeParams.recipeId;
-  firebaseFactory.getRecipe(recipeId).then(function(data) {
+  DataService.getRecipe(recipeId).then(function(data) {
     vm.recipe = data;
   });
 
@@ -13,4 +19,4 @@ app.controller('viewCtrl', function(firebaseFactory, $location, $routeParams) {
     $location.path('/edit/' + recipeId);
 
   };
-});
+};

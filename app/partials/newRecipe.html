@@ -1,5 +1,10 @@
-<h3>New Recipe</h3>
-<button ng-click="rec.addNewRecipe()" class="btn btn-success">SAVE</button>
+<h3>New Recipe!</h3>
+
+<div id="buttonFence">
+  <button ng-click="rec.addNewRecipe()" class="btn btn-success">SAVE</button>
+  <button ng-click="rec.cancelEdit()" class="btn btn-danger">Cancel</button>
+</div>
+
 
 <div class="form-group">
   <label for="newName">Recipe Name</label>

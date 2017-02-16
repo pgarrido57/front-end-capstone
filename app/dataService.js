@@ -1,10 +1,20 @@
-app.factory('firebaseFactory', function($http, $firebaseArray, $q){
+'use strict';
+
+angular.module('capstone')
+  .factory('DataService', DataService);
+
+
+DataService.$inject = ['$http', '$firebaseArray', '$q'];
+
+function DataService($http, $firebaseArray, $q) {
 
   var fireUrl = "https://front-end-capstone-b8669.firebaseio.com"
   var ref = new Firebase(fireUrl);
 
   var recipes = [];
   var recTags = [];
+
+
 
   var service = {
     getTags: getTags,
@@ -15,6 +25,7 @@ app.factory('firebaseFactory', function($http, $firebaseArray, $q){
     updateRecipe: updateRecipe
   };
   return service;
+
 
   function getTags() {
 
@@ -36,10 +47,14 @@ app.factory('firebaseFactory', function($http, $firebaseArray, $q){
   function addNewTag(tagName) {
 
 
+
     recTags = $firebaseArray(ref.child("tags"));
     recTags.$add({
       TagName: tagName
     });
+
+
+
   }
 
   function getRecentRecipes() {
@@ -56,6 +71,8 @@ app.factory('firebaseFactory', function($http, $firebaseArray, $q){
     });
     return deferred.promise;
   }
+
+
 
 
   function addNewRecipe(rec) {
@@ -89,4 +106,4 @@ app.factory('firebaseFactory', function($http, $firebaseArray, $q){
 
     return deferred.promise;
   }
-});
+};

@@ -1,23 +1,31 @@
-app.controller('editCtrl', function(firebaseFactory, $location, $routeParams) {
-  console.log('editCtrl');
+'use strict';
+
+angular.module('capstone').controller('editCtrl', editCtrl);
+
+editCtrl.$inject = ['DataService', '$location', '$routeParams'];
+
+function editCtrl(DataService, $location, $routeParams) {
+
   var vm = this;
 
   vm.name = "recipe";
   var instructionCounter = 0;
 
   console.info('edit loaded');
-  vm.recipeId = $routeParams.recipeId
+  vm.recipeId = $routeParams.recipeId;
 
-  firebaseFactory.getTags().then(function(data) {
+
+  DataService.getTags().then(function(data) {
     vm.allTags = data;
 
-    firebaseFactory.getRecipe(vm.recipeId).then(function(data) {
+    DataService.getRecipe(vm.recipeId).then(function(data) {
       console.log(data);
       vm.recipe = data;
 
       var selectedRecipes = data.Tags.map(function(y) {
         return y.TagId;
       });
+
       instructionCounter = vm.recipe.Instructions.length;
 
       for (var i = 0; i < vm.allTags.length; i++) {
@@ -64,11 +72,8 @@ app.controller('editCtrl', function(firebaseFactory, $location, $routeParams) {
     vm.recipe.Ingredients[group].Ingredients.splice(ing, 1);
   };
 
-
-
   vm.update = function() {
-    toastr.success('Saving');
-    firebaseFactory.updateRecipe(vm.recipe).then(function(data) {
+    DataService.updateRecipe(vm.recipe).then(function(data) {
       $location.path('/view/' + vm.recipeId);
     });
   }
@@ -76,4 +81,4 @@ app.controller('editCtrl', function(firebaseFactory, $location, $routeParams) {
   vm.cancelEdit = function() {
     $location.path('/view/' + vm.recipeId);
   }
-});
+};

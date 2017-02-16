@@ -1,8 +1,5 @@
 <h3>Editing a Recipe</h3>
 
-<pre>{{ rec.recipe | json }}</pre>
-
-
 <div id="buttonFence">
   <button class="btn btn-success" ng-click="rec.update()">Save</button>
   <button class="btn btn-danger" ng-click="rec.cancelEdit()">Cancel</button>
@@ -10,7 +7,7 @@
 
 <div class="form-group">
   <label for="editName">Recipe Name</label>
-  <input id="editName" class="form-control" ng-model="rec.recipe.Recipe.RecipeName">
+  <input id="editName" class="form-control" ng-model="rec.recipe.RecipeName">
 </div>
 
 <div ng-repeat="tag in rec.allTags" class="btn-group">
@@ -19,20 +16,19 @@
 
 <div class="form-group">
   <label for="editDescription">Description</label>
-  <textarea id="editDescription" class="form-control" ng-model="rec.recipe.Recipe.Description"></textarea>
+  <textarea id="editDescription" class="form-control" ng-model="rec.recipe.Description"></textarea>
 </div>
 
 <div class="form-group">
   <label for="editServing">Serving Size</label>
-  <input type="text" id="editServing" class="form-control" ng-model="rec.recipe.Recipe.ServingSize" />
+  <input type="text" id="editServing" class="form-control" ng-model="rec.recipe.ServingSize" />
 </div>
 
 <button class="btn btn-primary" ng-click="rec.addNewInstruction()">Add New Instruction</button>
 <div class="form-group" ng-repeat="ins in rec.recipe.Instructions">
   <label for="ins{{ins.id}}">{{ins.id}}</label>
   <button class="btn btn-danger btn-xs">
-    <!--<i class="glyphicon glyphicon-remove"></i>-->
-    remove
+    <i class="glyphicon glyphicon-remove"></i> remove
   </button>
   <textarea ng-model="ins.instructions" class="form-control"></textarea>
 </div>
@@ -51,10 +47,10 @@
     <div ng-repeat="ing in group.Ingredients" class="col-md-4">
       <div class="input-group  input-group-sm topSpace">
         <span class="input-group-btn">
-                      <button class="btn btn-danger" type="button" ng-click="rec.deleteIngredient($index, $parent.$index)">
-                          <i class="glyphicon glyphicon-remove"></i>
-                      </button>
-                  </span>
+          <button class="btn btn-danger" type="button" ng-click="rec.deleteIngredient($index, $parent.$index)">
+          <i class="glyphicon glyphicon-remove"></i>
+          </button>
+          </span>
         <input type="text" class="form-control input-sm" ng-model="ing.Ingredient">
       </div>
     </div>

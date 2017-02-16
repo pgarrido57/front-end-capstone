@@ -5,6 +5,6 @@ app.controller('registerCtrl', function($scope, authFactory, $location) {
 
         authFactory
             .register($scope.user)
-            .then(() => $location.url('/'));
+            .then(() => $location.url('/list'));
     };
 });
