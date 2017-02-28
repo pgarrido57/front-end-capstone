@@ -1,5 +1,5 @@
 angular.module('capstone')
-app.controller('editCtrl', function($scope, $location, $routeParams, DataService) {
+app.controller('editCtrl', function($scope, $location, $routeParams, firebaseFactory) {
 
   $scope.name = "recipe";
   var instructionCounter = 0;
@@ -8,10 +8,10 @@ app.controller('editCtrl', function($scope, $location, $routeParams, DataService
   $scope.recipeId = $routeParams.recipeId;
 
 
-  DataService.getTags().then(function(data) {
-    $scope.allTags = data;
+  // firebaseFactory.getTags().then(function(data) {
+  //   $scope.allTags = data;
 
-    DataService.getRecipe($scope.recipeId).then(function(data) {
+    firebaseFactory.getRecipe($scope.recipe.id).then(function(data) {
       console.log(data);
       $scope.recipe = data;
 
@@ -66,7 +66,7 @@ app.controller('editCtrl', function($scope, $location, $routeParams, DataService
   };
 
   $scope.update = function() {
-    DataService.updateRecipe($scope.recipe).then(function(data) {
+    firebaseFactory.updateRecipe($scope.recipe).then(function(data) {
       $location.path('/view/' + $scope.recipeId);
     });
   }
@@ -74,4 +74,3 @@ app.controller('editCtrl', function($scope, $location, $routeParams, DataService
   $scope.cancelEdit = function() {
     $location.path('/view/' + $scope.recipeId);
   }
-});

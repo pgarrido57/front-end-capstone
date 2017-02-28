@@ -11,7 +11,7 @@
 </div>
 
 <div ng-repeat="tag in allTags" class="btn-group">
-  <button class="btn bottomSpace" ng-click="rec.toggleSelection(tag)" ng-class="tag.Selected ? 'btn-primary' : 'btn-default'">{{tag.TagName}}</button> &nbsp;
+  <button class="btn bottomSpace" ng-click="toggleSelection(tag)" ng-class="tag.Selected ? 'btn-primary' : 'btn-default'">{{tag.TagName}}</button> &nbsp;
 </div>
 
 <div class="form-group">
@@ -25,7 +25,7 @@
 </div>
 
 <button class="btn btn-primary" ng-click="addNewInstruction()">Add New Instruction</button>
-<div class="form-group" ng-repeat="ins in recipe.Instructions">
+<div class="form-group" ng-repeat="ins in recipe.instructions">
   <label for="ins{{ins.id}}">{{ins.id}}</label>
   <button class="btn btn-danger btn-xs" ng-click="deleteInstruction($index, $parent.$index)">
     <i class="glyphicon glyphicon-remove"></i>remove

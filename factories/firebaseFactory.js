@@ -44,6 +44,15 @@ app.factory('firebaseFactory', function($http) {
           .post(`https://front-end-capstone-b8669.firebaseio.com/recipes.json`, angular.toJson(newRecipe));
       }
 
+
+      updateRecipe(update) {
+        return new Promise ((resolve, reject) => {
+          $http
+          .patch(`https://front-end-capstone-b8669.firebaseio.com/recipes/${recipeId}.json`, angular.toJson())
+        }
+
+      }
+
       // deleteSelected(delete) {
       //   return $http
       //   .delete(`https://front-end-capstone-b8669.firebaseio.com/recipes.json`)
