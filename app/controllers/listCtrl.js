@@ -14,7 +14,6 @@ app.controller('listCtrl', function($scope, $location, firebaseFactory) {
 
 
   $scope.goToRecipe = function(recipe) {
-
     $location.path('/view/' + recipe);
   }
 

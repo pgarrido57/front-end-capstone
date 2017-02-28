@@ -19,12 +19,12 @@ app.factory('firebaseFactory', function($http) {
         })
 
       },
-      getRecipeDetail(details) {
+      getRecipeDetail(recipeId) {
         let stats = [];
-        console.log(details)
+        console.log(recipeId)
           return new Promise((resolve, reject) => {
             $http
-              .get('https://front-end-capstone-b8669.firebaseio.com/recipes/${details}.json')
+              .get(`https://front-end-capstone-b8669.firebaseio.com/recipes/${recipeId}.json`)
               .then((data) => {
                 console.log("factory data", data);
                 res = data.data;
@@ -39,9 +39,14 @@ app.factory('firebaseFactory', function($http) {
 
         },
 
-      postRecipe() {
+      postRecipe(newRecipe) {
         return $http
-          .post(`https://front-end-capstone-b8669.firebaseio.com.json`);
+          .post(`https://front-end-capstone-b8669.firebaseio.com/recipes.json`, angular.toJson(newRecipe));
       }
+
+      // deleteSelected(delete) {
+      //   return $http
+      //   .delete(`https://front-end-capstone-b8669.firebaseio.com/recipes.json`)
+      // }
   }
 })

@@ -1,13 +1,9 @@
 angular.module('capstone')
-app.controller('newRecipeCtrl', function($scope, $location, DataService) {
+app.controller('newRecipeCtrl', function($scope, $location, firebaseFactory) {
 
   $scope.name = "recipe";
 
   $scope.foodTags = [];
-
-  DataService.getTags().then(function(data) {
-    $scope.foodTags = data;
-  });
 
   var instructionCounter = 1;
   $scope.recipeTags = [];
@@ -24,7 +20,7 @@ app.controller('newRecipeCtrl', function($scope, $location, DataService) {
     'ServingSize': ''
   };
 
-  $scope.addNewRecipe = function() {
+  $scope.postRecipe = function() {
 
     var cleanedTags = $scope.recipeTags.map(function(x) {
       return {
@@ -35,7 +31,7 @@ app.controller('newRecipeCtrl', function($scope, $location, DataService) {
 
 
     console.table($scope.newRecipe)
-    var newRec = {
+    var newRecipe = {
       RecipeName: $scope.newRecipe.RecipeName,
       Description: $scope.newRecipe.Description,
       ServingSize: $scope.newRecipe.ServingSize,
@@ -44,7 +40,7 @@ app.controller('newRecipeCtrl', function($scope, $location, DataService) {
       Tags: cleanedTags
     };
 
-    DataService.addNewRecipe(newRec).then(function(data) {
+    firebaseFactory.postRecipe(newRecipe).then(function(data) {
       $location.path('list');
     });
 
@@ -79,7 +75,7 @@ app.controller('newRecipeCtrl', function($scope, $location, DataService) {
     $scope.ingredients[index].Ingredients.push(newIng);
   }
 
-  $scope.deleteIngredient = function(ing, group) {
+  $scope.deleteIngredient = function(ingredient, group) {
     $scope.ingredients[group].Ingredients.splice(ing, 1);
   };
 

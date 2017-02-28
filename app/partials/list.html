@@ -11,8 +11,8 @@
 
     <a href="#!/new" class="btn btn-primary">Make a New One</a>
 
-    <ul>
-      <li ng-repeat="recipe in recipes" class="recipeTitle"><a ng-href="#!/view/{{recipe.id}}">
+    <ul ng-repeat="recipe in recipes">
+      <li class="recipeTitle"><a ng-href="#!/view/{{recipe.id}}">
         {{recipe.RecipeName}}
       </a></li>
     </ul>

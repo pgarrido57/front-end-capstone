@@ -1,7 +1,7 @@
 <h3>New Recipe!</h3>
 
 <div id="buttonFence">
-  <button ng-click="addNewRecipe()" class="btn btn-success">SAVE</button>
+  <button ng-click="postRecipe()" class="btn btn-success">SAVE</button>
   <button ng-click="cancelEdit()" class="btn btn-danger">Cancel</button>
 </div>
 
@@ -53,14 +53,14 @@
     <button id="addNewIngredient" ng-click="addNewIngredient(group)" class="btn btn-success" type="button">Add New Ingredient</button>
     <strong><span id="editMessaging"></span></strong>
     <div class="row">
-      <div ng-repeat="ing in group.Ingredients" class="col-md-4">
+      <div ng-repeat="ingredient in group.Ingredients" class="col-md-4">
         <div class="input-group  input-group-sm topSpace">
           <span class="input-group-btn">
                       <button class="btn btn-danger" type="button" ng-click="deleteIngredient($index, $parent.$index)">
                           <i class="glyphicon glyphicon-remove"></i>
                       </button>
                   </span>
-          <input type="text" class="form-control input-sm" ng-model="ing.Ingredient">
+          <input type="text" class="form-control input-sm" ng-model="ingredient.Ingredient">
         </div>
       </div>
     </div>
