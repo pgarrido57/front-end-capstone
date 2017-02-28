@@ -16,13 +16,13 @@
   <dd>{{recipeDetail}}</dd>
 </dl>
 
-  <div ng-repeat="ingredient in ingredients">
-    <ul ng-repeat="items in ingredient" class="ingredients">
-      <li ng-repeat="things in items" >
-        {{things}}
-      </li>
-    </ul>
-  </div>
+<div ng-repeat="ingredient in ingredients">
+  <ul ng-repeat="items in ingredient" class="ingredients">
+    <li ng-repeat="things in items">
+      {{things}}
+    </li>
+  </ul>
+</div>
 
 <ul>
   <li class="badge" ng-repeat="tag in recipe.Tags">{{tag.TagName}}</li>

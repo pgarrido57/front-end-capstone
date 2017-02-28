@@ -5,12 +5,12 @@ app.controller('listCtrl', function($scope, $location, firebaseFactory) {
   $scope.name = "list";
 
   firebaseFactory.getFirebaseRecipe()
-  .then(function(data) {
-    $scope.recipes = data;
-    console.log(data)
-  }).then(() => {
-    $scope.$apply();
-  });
+    .then(function(data) {
+      $scope.recipes = data;
+      console.log(data)
+    }).then(() => {
+      $scope.$apply();
+    });
 
 
   $scope.goToRecipe = function(recipe) {
