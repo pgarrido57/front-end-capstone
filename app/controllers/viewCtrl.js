@@ -1,22 +1,16 @@
-'use strict';
+angular.module('capstone')
+app.controller('viewCtrl', function($scope, $location, $routeParams, firebaseFactory) {
 
-angular.module('capstone').controller('viewCtrl', viewCtrl);
+  $scope.recipe = {};
 
-viewCtrl.$inject = ['DataService', '$location', '$routeParams'];
-
-function viewCtrl(DataService, $location, $routeParams) {
-
-  var vm = this;
-  vm.recipe = {};
-
-  var recipeId = $routeParams.recipeId;
-  DataService.getRecipe(recipeId).then(function(data) {
-    vm.recipe = data;
+  firebaseFactory.getRecipeDetail($routeParams.recipeid)
+  .then(function(data) {
+    $scope.recipe = data;
   });
 
-  vm.commenceEditing = function() {
-    console.log(recipeId);
-    $location.path('/edit/' + recipeId);
+  $scope.startEditing = function() {
+    console.log(recipe.id);
+    $location.path('/edit/' + recipe.id);
 
   };
-};
+});

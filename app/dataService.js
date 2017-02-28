@@ -1,20 +1,11 @@
-'use strict';
-
 angular.module('capstone')
-  .factory('DataService', DataService);
-
-
-DataService.$inject = ['$http', '$firebaseArray', '$q'];
-
-function DataService($http, $firebaseArray, $q) {
+  app.factory('DataService', function($http, $firebaseArray, $q) {
 
   var fireUrl = "https://front-end-capstone-b8669.firebaseio.com"
   var ref = new Firebase(fireUrl);
 
   var recipes = [];
   var recTags = [];
-
-
 
   var service = {
     getTags: getTags,
@@ -106,4 +97,4 @@ function DataService($http, $firebaseArray, $q) {
 
     return deferred.promise;
   }
-};
+});

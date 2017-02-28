@@ -1,10 +1,4 @@
-'use strict';
+app.controller('mainCtrl', function($scope) {
 
-angular.module('capstone').controller('mainCtrl', mainCtrl);
-
-function mainCtrl() {
-
-  var vm = this;
-
-  vm.name = "world";
-};
+  $scope.name = "world";
+});

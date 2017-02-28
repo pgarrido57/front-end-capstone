@@ -1,29 +1,21 @@
-'use strict';
+angular.module('capstone')
+app.controller('listCtrl', function($scope, $location, firebaseFactory) {
 
-angular.module('capstone').controller('listCtrl', listCtrl);
+  $scope.tags = [];
+  $scope.name = "list";
 
-listCtrl.$inject = ['DataService', '$location'];
-
-function listCtrl(DataService, $location) {
-
-  var vm = this;
-  vm.tags = [];
-  vm.recipes = [];
-  vm.name = "list";
-
-  DataService.getTags().then(function(data) {
-    vm.tags = data;
+  firebaseFactory.getFirebaseRecipe()
+  .then(function(data) {
+    $scope.recipes = data;
+    console.log(data)
+  }).then(() => {
+    $scope.$apply();
   });
 
 
-  DataService.getRecentRecipes().then(function(data) {
-    vm.recipes = data;
-  });
-
-
-  vm.goToRecipe = function(recipe) {
+  $scope.goToRecipe = function(recipe) {
 
     $location.path('/view/' + recipe);
   }
 
-};
+});

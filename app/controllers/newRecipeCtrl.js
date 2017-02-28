@@ -1,38 +1,32 @@
-'use strict';
+angular.module('capstone')
+app.controller('newRecipeCtrl', function($scope, $location, DataService) {
 
-angular.module('capstone').controller('newRecipeCtrl', newRecipeCtrl);
+  $scope.name = "recipe";
 
-newRecipeCtrl.$inject = ['DataService', '$location'];
-
-function newRecipeCtrl(DataService, $location) {
-
-  var vm = this;
-
-  vm.name = "recipe";
-
-  vm.foodTags = [];
+  $scope.foodTags = [];
 
   DataService.getTags().then(function(data) {
-    vm.foodTags = data;
+    $scope.foodTags = data;
   });
 
   var instructionCounter = 1;
-  vm.recipeTags = [];
-  vm.ingredients = [];
-  vm.instructions = [{
+  $scope.recipeTags = [];
+  $scope.ingredients = [];
+  $scope.instructions = [{
     id: 1,
     instructions: ""
   }];
-  vm.newRecipe = {
+
+  $scope.newRecipe = {
     'RecipeName': '',
     'RecipeId': '',
     'Description': '',
     'ServingSize': ''
   };
 
-  vm.addNewRecipe = function() {
+  $scope.addNewRecipe = function() {
 
-    var cleanedTags = vm.recipeTags.map(function(x) {
+    var cleanedTags = $scope.recipeTags.map(function(x) {
       return {
         TagName: x.TagName,
         TagId: x.TagId
@@ -40,13 +34,13 @@ function newRecipeCtrl(DataService, $location) {
     });
 
 
-    console.table(vm.newRecipe)
+    console.table($scope.newRecipe)
     var newRec = {
-      RecipeName: vm.newRecipe.RecipeName,
-      Description: vm.newRecipe.Description,
-      ServingSize: vm.newRecipe.ServingSize,
-      Ingredients: vm.ingredients,
-      Instructions: vm.instructions,
+      RecipeName: $scope.newRecipe.RecipeName,
+      Description: $scope.newRecipe.Description,
+      ServingSize: $scope.newRecipe.ServingSize,
+      Ingredients: $scope.ingredients,
+      Instructions: $scope.instructions,
       Tags: cleanedTags
     };
 
@@ -57,16 +51,16 @@ function newRecipeCtrl(DataService, $location) {
 
   };
 
-  vm.addNewInstruction = function() {
+  $scope.addNewInstruction = function() {
     instructionCounter++;
-    vm.instructions.push({
+    $scope.instructions.push({
       id: instructionCounter,
       instructions: ""
     });
   };
 
 
-  vm.addNewGroup = function() {
+  $scope.addNewGroup = function() {
     var newGroup = {
       'Title': '',
       'RecipeId': 0,
@@ -74,37 +68,37 @@ function newRecipeCtrl(DataService, $location) {
         'Ingredient': ''
       }]
     };
-    vm.ingredients.push(newGroup);
+    $scope.ingredients.push(newGroup);
   };
 
-  vm.addNewIngredient = function(group) {
-    var index = vm.ingredients.indexOf(group);
+  $scope.addNewIngredient = function(group) {
+    var index = $scope.ingredients.indexOf(group);
     var newIng = {
       'Ingredient': ''
     };
-    vm.ingredients[index].Ingredients.push(newIng);
+    $scope.ingredients[index].Ingredients.push(newIng);
   }
 
-  vm.deleteIngredient = function(ing, group) {
-    vm.ingredients[group].Ingredients.splice(ing, 1);
+  $scope.deleteIngredient = function(ing, group) {
+    $scope.ingredients[group].Ingredients.splice(ing, 1);
   };
 
-  vm.toggleSelection = function(myTag) {
+  $scope.toggleSelection = function(myTag) {
     myTag.Selected = !myTag.Selected;
 
     var idx = -1;
-    for (var i = 0; i < vm.recipeTags.length; i++) {
-      if (vm.recipeTags[i].TagId == myTag.TagId) {
+    for (var i = 0; i < $scope.recipeTags.length; i++) {
+      if ($scope.recipeTags[i].TagId == myTag.TagId) {
         idx = i;
       }
     }
     if (idx > -1) {
-      vm.recipeTags.splice(idx, 1);
+      $scope.recipeTags.splice(idx, 1);
     } else {
-      vm.recipeTags.push(myTag);
+      $scope.recipeTags.push(myTag);
     }
   };
-  vm.cancelEdit = function() {
+  $scope.cancelEdit = function() {
     $location.path('/list');
   }
-};
+});
