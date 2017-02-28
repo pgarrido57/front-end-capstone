@@ -1,53 +1,53 @@
 <h3>Editing a Recipe</h3>
 
 <div id="buttonFence">
-  <button class="btn btn-success" ng-click="rec.update()">Save</button>
-  <button class="btn btn-danger" ng-click="rec.cancelEdit()">Cancel</button>
+  <button class="btn btn-success" ng-click="update()">Save</button>
+  <button class="btn btn-danger" ng-click="cancelEdit()">Cancel</button>
 </div>
 
 <div class="form-group">
   <label for="editName">Recipe Name</label>
-  <input id="editName" class="form-control" ng-model="rec.recipe.RecipeName">
+  <input id="editName" class="form-control" ng-model="recipe.RecipeName">
 </div>
 
-<div ng-repeat="tag in rec.allTags" class="btn-group">
-  <button class="btn bottomSpace" ng-click="rec.toggleSelection(tag)" ng-class="tag.Selected ? 'btn-primary' : 'btn-default'">{{tag.TagName}}</button> &nbsp;
+<div ng-repeat="tag in allTags" class="btn-group">
+  <button class="btn bottomSpace" ng-click="toggleSelection(tag)" ng-class="tag.Selected ? 'btn-primary' : 'btn-default'">{{tag.TagName}}</button> &nbsp;
 </div>
 
 <div class="form-group">
   <label for="editDescription">Description</label>
-  <textarea id="editDescription" class="form-control" ng-model="rec.recipe.Description"></textarea>
+  <textarea id="editDescription" class="form-control" ng-model="recipe.Description"></textarea>
 </div>
 
 <div class="form-group">
   <label for="editServing">Serving Size</label>
-  <input type="text" id="editServing" class="form-control" ng-model="rec.recipe.ServingSize" />
+  <input type="text" id="editServing" class="form-control" ng-model="recipe.ServingSize">
 </div>
 
-<button class="btn btn-primary" ng-click="rec.addNewInstruction()">Add New Instruction</button>
-<div class="form-group" ng-repeat="ins in rec.recipe.Instructions">
+<button class="btn btn-primary" ng-click="addNewInstruction()">Add New Instruction</button>
+<div class="form-group" ng-repeat="ins in recipe.instructions">
   <label for="ins{{ins.id}}">{{ins.id}}</label>
-  <button class="btn btn-danger btn-xs">
-    <i class="glyphicon glyphicon-remove"></i> remove
+  <button class="btn btn-danger btn-xs" ng-click="deleteInstruction($index, $parent.$index)">
+    <i class="glyphicon glyphicon-remove"></i>remove
   </button>
   <textarea ng-model="ins.instructions" class="form-control"></textarea>
 </div>
 
-<button class="btn btn-primary" ng-click="rec.addNewGroup()">Add New Ingredient Group</button>
-<div ng-repeat="group in rec.recipe.Ingredients">
+<button class="btn btn-primary" ng-click="addNewGroup()">Add New Ingredient Group</button>
+<div ng-repeat="group in recipe.Ingredients">
   <div class="form-group">
     <label class="control-label">
       Ingredient Group Title
     </label>
     <input type="text" class="form-control" ng-model="group.Title" />
   </div>
-  <button id="addNewIngredient" ng-click="rec.addNewIngredient(group)" class="btn btn-success" type="button">Add New Ingredient</button>
+  <button id="addNewIngredient" ng-click="addNewIngredient(group)" class="btn btn-success" type="button">Add New Ingredient</button>
   <strong><span id="editMessaging"></span></strong>
   <div class="row">
     <div ng-repeat="ing in group.Ingredients" class="col-md-4">
       <div class="input-group  input-group-sm topSpace">
         <span class="input-group-btn">
-          <button class="btn btn-danger" type="button" ng-click="rec.deleteIngredient($index, $parent.$index)">
+          <button class="btn btn-danger" type="button" ng-click="deleteIngredient($index, $parent.$index)">
           <i class="glyphicon glyphicon-remove"></i>
           </button>
           </span>

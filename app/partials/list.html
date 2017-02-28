@@ -1,4 +1,6 @@
-<h2>List</h2>
+<!-- <h2>List</h2> -->
+
+<img src="https://images.cooltext.com/4893296.png">
 
 <div class="row">
   <div class="col-lg-2 col-xs-12">
@@ -9,12 +11,12 @@
 
   <div class="col-lg-10 col-xs-12">
 
-    <a href="#new" class="btn btn-primary">Make a New One</a>
+    <a href="#!/new" class="btn btn-primary">Make a New One</a>
 
-    <ul>
-      <li ng-repeat="rec in list.recipes" class="recipeTitle" ng-click="list.goToRecipe(rec.RecipeId)">
-        {{rec.RecipeName}}
-      </li>
+    <ul ng-repeat="recipe in recipes">
+      <li class="recipeTitle"><a ng-href="#!/view/{{recipe.id}}">
+        {{recipe.RecipeName}}
+      </a></li>
     </ul>
 
   </div>

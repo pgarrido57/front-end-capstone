@@ -1,22 +1,28 @@
-'use strict';
+angular.module('capstone')
+app.controller('viewCtrl', function($scope, $location, $routeParams, firebaseFactory) {
 
-angular.module('capstone').controller('viewCtrl', viewCtrl);
+  $scope.recipe = {};
 
-viewCtrl.$inject = ['DataService', '$location', '$routeParams'];
+  firebaseFactory.getRecipeDetail($routeParams.recipeId)
+    .then(function(data) {
+      $scope.recipe = data;
+      $scope.recipeDetail = data[0]
+      $scope.recipeName = data[3]
+      $scope.servingSize = data[4]
+      $scope.ingredients = data[1][0]
+      $scope.instructions = data[2]
+      console.log($scope.instructions)
+    }).then(() => {
+      $scope.$apply()
+    });
 
-function viewCtrl(DataService, $location, $routeParams) {
+  //   $scope.deleteRecipe = function(delete) {
+  //   firebaseFactory.deleteSelected()
+  // }
 
-  var vm = this;
-  vm.recipe = {};
-
-  var recipeId = $routeParams.recipeId;
-  DataService.getRecipe(recipeId).then(function(data) {
-    vm.recipe = data;
-  });
-
-  vm.commenceEditing = function() {
-    console.log(recipeId);
-    $location.path('/edit/' + recipeId);
+  $scope.startEditing = function() {
+    console.log($scope.recipe.id);
+    $location.path('/edit/' + $scope.recipe.id);
 
   };
-};
+});

@@ -1,11 +1,11 @@
-<a class="btn btn-warning" href="#list">
+<a class="btn btn-warning" href="#!/list">
   <i class="glyphicon glyphicon-arrow-left"></i>
 </a>
-<button class="btn btn-primary" ng-click="view.commenceEditing()">Edit</button>
+<button class="btn btn-primary" ng-click="startEditing()">Edit</button>
 
-<h2>{{view.recipe.RecipeName}}</h2>
+<h2>{{recipeName}}</h2>
 
-<h3>{{view.recipe.Recipe.RecipeName}} <small>Serving Size: {{view.recipe.ServingSize}}</small> </h3>
+<h3><small>Serving Size: {{servingSize}}</small></h3>
 
 <div class="btn-group" ng-repeat="tag in selectedRecipe.Tags">
   <button class="btn btn-primary">{{tag.TagName}}</button> &nbsp;
@@ -13,14 +13,22 @@
 
 <dl>
   <dt>DESCRIPTION</dt>
-  <dd>{{view.recipe.Description}}</dd>
+  <dd>{{recipeDetail}}</dd>
 </dl>
 
+<div ng-repeat="ingredient in ingredients">
+  <ul ng-repeat="items in ingredient" class="ingredients">
+    <li ng-repeat="things in items">
+      {{things}}
+    </li>
+  </ul>
+</div>
+
 <ul>
-  <li class="badge" ng-repeat="tag in view.recipe.Tags">{{tag.TagName}}</li>
+  <li class="badge" ng-repeat="tag in recipe.Tags">{{tag.TagName}}</li>
 </ul>
 
-<div ng-repeat="group in view.recipe.Ingredients" class="ingredientGroup">
+<div ng-repeat="group in recipe.Ingredients" class="ingredientGroup">
   <strong>{{group.Title}}</strong>
   <div class="row ingredientLine">
     <div class="col-md-6" ng-repeat="ing in group.Ingredients">
@@ -30,10 +38,9 @@
 </div>
 
 
-
-<dl class="dl-horizontal" ng-repeat="instructions in view.recipe.Instructions">
-  <dt>{{instructions.id}}.</dt>
+<dl class="dl-horizontal" ng-repeat="instruction in instructions">
+  <dt>{{instruction.id}}.</dt>
   <dd>
-    {{instructions.instructions}}
+    {{instruction.instructions}}
   </dd>
 </dl>
