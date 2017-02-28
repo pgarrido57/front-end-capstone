@@ -1,0 +1,23 @@
+<!-- <h2>List</h2> -->
+
+<img src="https://images.cooltext.com/4893296.png">
+
+<div class="row">
+  <div class="col-lg-2 col-xs-12">
+    <ul>
+      <li class="badge" ng-repeat="tag in list.tags">{{tag.TagName}}</li>
+    </ul>
+  </div>
+
+  <div class="col-lg-10 col-xs-12">
+
+    <a href="#!/new" class="btn btn-primary">Make a New One</a>
+
+    <ul ng-repeat="recipe in recipes">
+      <li class="recipeTitle"><a ng-href="#!/view/{{recipe.id}}">
+        {{recipe.RecipeName}}
+      </a></li>
+    </ul>
+
+  </div>
+</div>

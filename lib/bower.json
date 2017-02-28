@@ -19,6 +19,8 @@
     "angular-route": "^1.6.1",
     "firebase": "^3.6.8",
     "angular-material": "^1.1.3",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "angularfire": "^2.3.0"
   }
 }

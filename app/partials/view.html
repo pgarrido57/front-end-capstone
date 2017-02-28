@@ -1,0 +1,46 @@
+<a class="btn btn-warning" href="#!/list">
+  <i class="glyphicon glyphicon-arrow-left"></i>
+</a>
+<button class="btn btn-primary" ng-click="startEditing()">Edit</button>
+
+<h2>{{recipeName}}</h2>
+
+<h3><small>Serving Size: {{servingSize}}</small></h3>
+
+<div class="btn-group" ng-repeat="tag in selectedRecipe.Tags">
+  <button class="btn btn-primary">{{tag.TagName}}</button> &nbsp;
+</div>
+
+<dl>
+  <dt>DESCRIPTION</dt>
+  <dd>{{recipeDetail}}</dd>
+</dl>
+
+<div ng-repeat="ingredient in ingredients">
+  <ul ng-repeat="items in ingredient" class="ingredients">
+    <li ng-repeat="things in items">
+      {{things}}
+    </li>
+  </ul>
+</div>
+
+<ul>
+  <li class="badge" ng-repeat="tag in recipe.Tags">{{tag.TagName}}</li>
+</ul>
+
+<div ng-repeat="group in recipe.Ingredients" class="ingredientGroup">
+  <strong>{{group.Title}}</strong>
+  <div class="row ingredientLine">
+    <div class="col-md-6" ng-repeat="ing in group.Ingredients">
+      {{ing.Ingredient}}
+    </div>
+  </div>
+</div>
+
+
+<dl class="dl-horizontal" ng-repeat="instruction in instructions">
+  <dt>{{instruction.id}}.</dt>
+  <dd>
+    {{instruction.instructions}}
+  </dd>
+</dl>
